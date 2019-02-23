@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import { Asset, Audio, Font, Video } from 'expo';
 import { MaterialIcons } from '@expo/vector-icons';
+import moment from 'moment';
 
 class Icon {
   constructor(module, width, height) {
@@ -120,6 +121,7 @@ export default class App extends React.Component {
       useNativeControls: false,
       fullscreen: false,
       throughEarpiece: false,
+      currentTime: moment().format('h:mm:ss a')
     };
   }
 
@@ -139,6 +141,12 @@ export default class App extends React.Component {
       });
       this.setState({ fontLoaded: true });
     })();
+
+    setInterval(() => {
+      this.setState({
+        currentTime: moment().format('h:mm:ss a')
+      });
+    }, 1000);
   }
 
   async _loadNewPlaybackInstance(playing) {
@@ -563,7 +571,10 @@ export default class App extends React.Component {
             style={styles.wrapper}
             onPress={() => this._trySetRate(1.0, this.state.shouldCorrectPitch)}>
             <View style={styles.button}>
-              <Text style={[styles.text, { fontFamily: 'cutive-mono-regular' }]}>Rate:</Text>
+              <Text style={[styles.text, { fontFamily: 'cutive-mono-regular' }]}>
+                {/* Rate: */}
+                {this.state.currentTime}
+              </Text>
             </View>
           </TouchableHighlight>
           <Slider
