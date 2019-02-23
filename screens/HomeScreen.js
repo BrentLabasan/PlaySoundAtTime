@@ -16,6 +16,8 @@ import { Asset, Audio, Font, Video } from 'expo';
 import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment';
 
+const timeFormat = 'HH:mm:ss'; 
+
 class Icon {
   constructor(module, width, height) {
     this.module = module;
@@ -121,7 +123,7 @@ export default class App extends React.Component {
       useNativeControls: false,
       fullscreen: false,
       throughEarpiece: false,
-      currentTime: moment().format('h:mm:ss a')
+      currentTime: moment().format(timeFormat)
     };
   }
 
@@ -144,7 +146,7 @@ export default class App extends React.Component {
 
     setInterval(() => {
       this.setState({
-        currentTime: moment().format('h:mm:ss a')
+        currentTime: moment().format(timeFormat)
       });
     }, 1000);
   }
@@ -167,6 +169,9 @@ export default class App extends React.Component {
       // // UNCOMMENT THIS TO TEST THE OLD androidImplementation:
       // androidImplementation: 'MediaPlayer',
     };
+
+    // was causing an error on initial c/p. I don't need video anyway, so I just commented 
+    // the if part out.
 
     // if (PLAYLIST[this.index].isVideo) {
     //   this._video.setOnPlaybackStatusUpdate(this._onPlaybackStatusUpdate);
