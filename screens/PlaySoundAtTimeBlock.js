@@ -12,14 +12,18 @@ export default class PlaySoundAtTimeBlock extends React.Component {
     super(props);
 
     this.state = {
-      soundFilePath: "/song/path",
+      fileMetaData: {
+        uri: "path/is/empty",
+        name: "name is empty",
+        size: "size is empty"
+      },
       playAtTime: "CLICK TO SET TIME"
     };
   }
 
   async setPlayAtTime() {
     try {
-      const {action, hour, minute} = await TimePickerAndroid.open({
+      const { action, hour, minute } = await TimePickerAndroid.open({
         hour: 14,
         minute: 0,
         is24Hour: false, // Will display '2 PM'
@@ -27,19 +31,33 @@ export default class PlaySoundAtTimeBlock extends React.Component {
       if (action !== TimePickerAndroid.dismissedAction) {
         // Selected hour (0-23), minute (0-59)
         this.setState({
-          playAtTime: moment( hour + ":" + minute + ":" + "00", TimeFormat).format(TimeFormat)
+          playAtTime: moment(hour + ":" + minute + ":" + "00", TimeFormat).format(TimeFormat)
         });
       }
-    } catch ({code, message}) {
+    } catch ({ code, message }) {
       console.warn('Cannot open time picker', message);
     }
   }
 
-  setSoundsFilePath() {
-    DocumentPicker.getDocumentAsync({
-      type: 'audio/*',
-      copyToCacheDirectory: true
-    });
+  async setSoundsFilePath() {
+    try {
+      const { type, uri, name, size } = await DocumentPicker.getDocumentAsync({
+        type: 'audio/*',
+        copyToCacheDirectory: true
+      });
+      if (type === 'success') {
+        this.setState({
+          fileMetaData: {
+            uri: uri,
+            name: name,
+            size: size
+          }
+        });
+      }
+      console.log("uri", uri);
+    } catch ({ code, message }) {
+      console.warn('Cannot open time picker', message);
+    }
   }
 
   render() {
@@ -49,15 +67,15 @@ export default class PlaySoundAtTimeBlock extends React.Component {
       <View style={styles.playSoundAtTimeBlock}>
         <Text>
           {/* {this.props.id} */}
-          {this.state.soundFilePath}
+          {this.state.fileMetaData.uri}
         </Text>
 
         <Button
-            onPress={() => {
-              this.setSoundsFilePath();
-            }}
-            title={'Select Sound File'}
-          />
+          onPress={() => {
+            this.setSoundsFilePath();
+          }}
+          title={'Select Sound File'}
+        />
 
 
         <Text>
@@ -65,11 +83,11 @@ export default class PlaySoundAtTimeBlock extends React.Component {
         </Text>
 
         <Button
-            onPress={() => {
-              this.setPlayAtTime();
-            }}
-            title={this.state.playAtTime}
-          />
+          onPress={() => {
+            this.setPlayAtTime();
+          }}
+          title={this.state.playAtTime}
+        />
       </View>
 
     );

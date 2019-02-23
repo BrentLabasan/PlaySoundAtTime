@@ -40,7 +40,8 @@ class PlaylistItem {
 const PLAYLIST = [
   new PlaylistItem(
     'Comfort Fit - “Sorry”',
-    'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3',
+    // 'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3',
+    'file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FPlaySoundAtTime-0257232e-0541-4629-ab8b-61130dde3037/DocumentPicker/16350734-53f4-4c05-8eab-80c3647a4f6fwav',
     false
   ),
   // new PlaylistItem(
@@ -50,7 +51,8 @@ const PLAYLIST = [
   // ),
   new PlaylistItem(
     'Mildred Bailey – “All Of Me”',
-    'https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3',
+    // 'https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3',
+    'file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FPlaySoundAtTime-0257232e-0541-4629-ab8b-61130dde3037/DocumentPicker/021c176d-624a-48bf-955c-63185d6447fcm4a',
     false
   ),
   // new PlaylistItem(
@@ -187,7 +189,7 @@ export default class App extends React.Component {
     // } else {
       const { sound, status } = await Audio.Sound.createAsync(
         // source,
-        require('./a.wav'),
+        source,
         initialStatus,
         this._onPlaybackStatusUpdate
       );
