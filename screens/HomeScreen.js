@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { Button, Text, View } from 'react-native';
+import moment from 'moment';
 
 import { Audio } from 'expo';
 
 export default class HelloWorldApp extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      currentTime: moment().format('h:mm:ss a')
+    };
   }
 
   async blah() {
@@ -25,11 +30,13 @@ export default class HelloWorldApp extends Component {
 
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Hello sound!</Text>
+        <Text>
+          {this.state.currentTime}
+        </Text>
 
         <Button
         onPress={this.blah}
-        title="Learn More"
+        title={"Play Sound"}
         color="#841584"
       />
       </View>
