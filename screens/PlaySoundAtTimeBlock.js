@@ -1,5 +1,6 @@
 import React from 'react';
 import { Alert, Button, DatePickerAndroid, ScrollView, StyleSheet, Text, TimePickerAndroid, View } from 'react-native';
+import { DocumentPicker } from 'expo';
 import moment from 'moment';
 
 import TimeFormat from '../constants/TimeFormat.js';
@@ -34,6 +35,13 @@ export default class PlaySoundAtTimeBlock extends React.Component {
     }
   }
 
+  setSoundsFilePath() {
+    DocumentPicker.getDocumentAsync({
+      type: 'audio/*',
+      copyToCacheDirectory: true
+    });
+  }
+
   render() {
 
     return (
@@ -43,6 +51,13 @@ export default class PlaySoundAtTimeBlock extends React.Component {
           {/* {this.props.id} */}
           {this.state.soundFilePath}
         </Text>
+
+        <Button
+            onPress={() => {
+              this.setSoundsFilePath();
+            }}
+            title={'Select Sound File'}
+          />
 
 
         <Text>
