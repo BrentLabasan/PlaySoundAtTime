@@ -96,6 +96,10 @@ const RATE_SCALE = 3.0;
 const VIDEO_CONTAINER_HEIGHT = DEVICE_HEIGHT * 2.0 / 5.0 - FONT_SIZE * 2;
 
 export default class App extends React.Component {
+  static navigationOptions = {
+    title: 'Player',
+  };
+
   constructor(props) {
     super(props);
     this.index = 0;
