@@ -1,11 +1,25 @@
 import React from 'react';
-import { Alert, Button, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, Button, FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
+
+import PlaySoundAtTimeBlock from './PlaySoundAtTimeBlock.js';
 
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
-    title: 'Playlists',
+    title: 'Playlists'
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      playlist: [
+        {key: 'a'},
+        {key: 'b'},
+        {key: 'c'},
+      ]
+    }
+  }
 
   render() {
     return (
@@ -30,6 +44,15 @@ export default class LinksScreen extends React.Component {
             title="+ >Sound@Time Block"
           />
         </View>
+        
+        <View>
+        <FlatList
+          data={this.state.playlist}
+          renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+        />
+        </View>
+
+
       </ScrollView>
 
     );
@@ -55,5 +78,10 @@ const styles = StyleSheet.create({
   topButton: {
     paddingLeft: 15,
     paddingRight: 15,
-  }
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
 });
