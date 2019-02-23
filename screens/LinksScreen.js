@@ -1,6 +1,9 @@
 import React from 'react';
 import { Alert, Button, FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
+import {AsyncStorage} from 'react-native';
+import moment from 'moment';
+
 const uuidv4 = require('uuid/v4');
 
 import PlaySoundAtTimeBlock from './PlaySoundAtTimeBlock.js';
@@ -10,12 +13,43 @@ export default class LinksScreen extends React.Component {
     title: 'Playlists'
   };
 
+  _storeData = async () => {
+    try {
+      await AsyncStorage.setItem( 'appJson', 'I like to save it.' + moment().format(timeFormat) );
+    } catch (error) {
+      // Error saving data
+    }
+  };
+
+  _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('appJson');
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
       playlist: []
     }
+  }
+
+  componentDidMount() {
+    console.log("LinksScreen.js componentDidMount()");
+
+    this._storeData();
+    this._retrieveData();
+  }
+
+  componentWillUnmount() {
+    console.log("LinksScreen.js componentDidUnmount()");
   }
 
   createBlock() {
