@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Button, DatePickerAndroid, ScrollView, StyleSheet, Text, TimePickerAndroid, View } from 'react-native';
 import moment from 'moment';
 
 
@@ -13,20 +13,42 @@ export default class PlaySoundAtTimeBlock extends React.Component {
     };
   }
 
+  async setPlayAtTime() {
+    try {
+      const {action, hour, minute} = await TimePickerAndroid.open({
+        hour: 14,
+        minute: 0,
+        is24Hour: false, // Will display '2 PM'
+      });
+      if (action !== TimePickerAndroid.dismissedAction) {
+        // Selected hour (0-23), minute (0-59)
+      }
+    } catch ({code, message}) {
+      console.warn('Cannot open time picker', message);
+    }
+  }
+
   render() {
 
     return (
 
       <View style={styles.playSoundAtTimeBlock}>
         <Text>
-        {/* {this.props.id} */}
-        {this.state.soundFilePath}
+          {/* {this.props.id} */}
+          {this.state.soundFilePath}
         </Text>
 
 
         <Text>
           Play At Time: {this.state.playAtTime}
         </Text>
+
+        <Button
+            onPress={() => {
+              this.setPlayAtTime();
+            }}
+            title={this.state.playAtTime}
+          />
       </View>
 
     );
