@@ -2,6 +2,9 @@ import React from 'react';
 import { Alert, Button, DatePickerAndroid, ScrollView, StyleSheet, Text, TimePickerAndroid, View } from 'react-native';
 import moment from 'moment';
 
+import TimeFormat from '../constants/TimeFormat.js';
+
+
 
 export default class PlaySoundAtTimeBlock extends React.Component {
   constructor(props) {
@@ -22,6 +25,9 @@ export default class PlaySoundAtTimeBlock extends React.Component {
       });
       if (action !== TimePickerAndroid.dismissedAction) {
         // Selected hour (0-23), minute (0-59)
+        this.setState({
+          playAtTime: moment( hour + ":" + minute + ":" + "00", TimeFormat).format(TimeFormat)
+        });
       }
     } catch ({code, message}) {
       console.warn('Cannot open time picker', message);
@@ -74,7 +80,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-evenly'
   },
   topButton: {
