@@ -1,0 +1,1 @@
+export default TimeFormat = 'HH:mm:ss';

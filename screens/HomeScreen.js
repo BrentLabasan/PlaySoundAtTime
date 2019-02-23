@@ -16,7 +16,9 @@ import { Asset, Audio, Font, Video } from 'expo';
 import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment';
 
-const timeFormat = 'HH:mm:ss'; 
+import TimeFormat from '../constants/TimeFormat.js';
+
+const timeFormat = TimeFormat; 
 
 class Icon {
   constructor(module, width, height) {
