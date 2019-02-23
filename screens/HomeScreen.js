@@ -186,7 +186,8 @@ export default class App extends React.Component {
     //   const status = await this._video.getStatusAsync();
     // } else {
       const { sound, status } = await Audio.Sound.createAsync(
-        source,
+        // source,
+        require('./a.wav'),
         initialStatus,
         this._onPlaybackStatusUpdate
       );
