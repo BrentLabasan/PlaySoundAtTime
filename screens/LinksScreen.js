@@ -1,6 +1,7 @@
 import React from 'react';
 import { Alert, Button, FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
+const uuidv4 = require('uuid/v4');
 
 import PlaySoundAtTimeBlock from './PlaySoundAtTimeBlock.js';
 
@@ -13,15 +14,22 @@ export default class LinksScreen extends React.Component {
     super(props);
 
     this.state = {
-      playlist: [
-        {key: 'a'},
-        {key: 'b'},
-        {key: 'c'},
-      ]
+      playlist: []
     }
   }
 
+  createBlock() {
+    let joined = this.state.playlist.concat({ key: uuidv4() });
+    this.setState({
+      playlist: joined
+    });
+  }
+
   render() {
+    let blocks = this.state.playlist.map((block) => {
+      return <PlaySoundAtTimeBlock key={block.key} id={block.key} />;
+    });
+
     return (
       <ScrollView style={styles.container}>
         {/* Go ahead and delete ExpoLinksView and replace it with your
@@ -39,19 +47,27 @@ export default class LinksScreen extends React.Component {
           <Button
             style={styles.topButton}
             onPress={() => {
-              Alert.alert('You tapped the button!');
+              // Alert.alert('You tapped the button!');
+              this.createBlock();
             }}
             title="+ >Sound@Time Block"
           />
         </View>
-        
-        <View>
-        <FlatList
-          data={this.state.playlist}
-          renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-        />
-        </View>
 
+        <View>
+
+          {/* <FlatList
+            data={this.state.playlist}
+            // renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+
+            // doesn't work
+            // renderItem={() => <PlaySoundAtTimeBlock></PlaySoundAtTimeBlock>}
+          /> */}
+
+          {blocks}
+
+
+        </View>
 
       </ScrollView>
 

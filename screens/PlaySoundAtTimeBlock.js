@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default class PlaySoundAtTimeBlock extends React.Component {
   constructor(props) {
@@ -11,12 +11,14 @@ export default class PlaySoundAtTimeBlock extends React.Component {
   }
 
   render() {
-    
 
     return (
 
       <View style={styles.containerTopButtons}>
+        <Text>
+        {this.props.id}
         {this.state.soundFilePath}
+        </Text>
       </View>
 
     );
