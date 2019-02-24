@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import TimeFormat from '../constants/TimeFormat.js';
 
+const timeFormat = TimeFormat; 
 
 
 export default class PlaySoundAtTimeBlock extends React.Component {
@@ -62,12 +63,16 @@ export default class PlaySoundAtTimeBlock extends React.Component {
 
   render() {
 
+    if ( this.props.currentTime ===  this.state.playAtTime) {
+      this.props.navigation.navigate('Home')
+    }
+
     return (
 
       <View style={styles.playSoundAtTimeBlock}>
         <Button
           onPress={() => {
-            () => this.props.navigation('Links')
+            this.props.navigation.navigate('Home')
             // () => this.props.navigation.replace('SettingsScreen')
             // () => this.props.navigation.pop()
           }}

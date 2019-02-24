@@ -4,6 +4,10 @@ import { ExpoLinksView } from '@expo/samples';
 import {AsyncStorage} from 'react-native';
 import moment from 'moment';
 
+import TimeFormat from '../constants/TimeFormat.js';
+
+const timeFormat = TimeFormat; 
+
 const uuidv4 = require('uuid/v4');
 
 import PlaySoundAtTimeBlock from './PlaySoundAtTimeBlock.js';
@@ -37,7 +41,8 @@ export default class LinksScreen extends React.Component {
     super(props);
 
     this.state = {
-      playlist: []
+      playlist: [],
+      currentTime: moment().format(timeFormat)
     }
   }
 
@@ -46,6 +51,12 @@ export default class LinksScreen extends React.Component {
 
     this._storeData();
     this._retrieveData();
+
+    setInterval(() => {
+      this.setState({
+        currentTime: moment().format(timeFormat)
+      });
+    }, 1000);
   }
 
   componentWillUnmount() {
@@ -61,7 +72,12 @@ export default class LinksScreen extends React.Component {
 
   render() {
     let blocks = this.state.playlist.map((block) => {
-      return <PlaySoundAtTimeBlock key={block.key} id={block.key} navigation={this.props.navigation} />;
+      return <PlaySoundAtTimeBlock
+        key={block.key}
+        id={block.key}
+        navigation={this.props.navigation}
+        currentTime={this.state.currentTime}
+      />;
     });
 
     const { navigate } = this.props.navigation;
@@ -79,7 +95,7 @@ export default class LinksScreen extends React.Component {
             // () => this.props.navigation.navigate('Home');
             // () => this.props.navigation.goBack()
             // () => this.props.navigation.actions.pop()
-            this.props.navigation.navigate('Home', { name: 'Brent' })
+            this.props.navigation.navigate('Home')
             console.log("pressed1");
           }}
           title={'Go To Settings'}
