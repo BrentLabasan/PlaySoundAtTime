@@ -61,8 +61,12 @@ export default class LinksScreen extends React.Component {
 
   render() {
     let blocks = this.state.playlist.map((block) => {
-      return <PlaySoundAtTimeBlock key={block.key} id={block.key} />;
+      return <PlaySoundAtTimeBlock key={block.key} id={block.key} navigation={this.props.navigation} />;
     });
+
+    const { navigate } = this.props.navigation;
+
+    console.log("LinksScreen.js", this.props.navigation);
 
     return (
       <ScrollView style={styles.container}>
@@ -70,6 +74,21 @@ export default class LinksScreen extends React.Component {
            * content, we just wanted to provide you with some helpful links */}
 
         <View style={styles.containerTopButtons}>
+        <Button
+          onPress={() => {
+            // () => this.props.navigation.navigate('Home');
+            // () => this.props.navigation.goBack()
+            // () => this.props.navigation.actions.pop()
+            this.props.navigation.navigate('Home', { name: 'Brent' })
+            console.log("pressed1");
+          }}
+          title={'Go To Settings'}
+        />
+        </View>
+
+        <View style={styles.containerTopButtons}>
+        
+
           <Button
             style={styles.topButton}
             onPress={() => {

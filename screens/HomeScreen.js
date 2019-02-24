@@ -136,6 +136,9 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+        console.log("HomeScreen.js", this.props.navigation);
+
+
     Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
       interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
@@ -453,6 +456,9 @@ export default class App extends React.Component {
   };
 
   render() {
+    // console.log("HomeScreen.js", this.props.navigation);
+    // console.log("HomeScreen.js render()", moment().format(timeFormat));
+
     return !this.state.fontLoaded ? (
       <View style={styles.emptyContainer} />
     ) : (

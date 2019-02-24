@@ -65,6 +65,15 @@ export default class PlaySoundAtTimeBlock extends React.Component {
     return (
 
       <View style={styles.playSoundAtTimeBlock}>
+        <Button
+          onPress={() => {
+            () => this.props.navigation('Links')
+            // () => this.props.navigation.replace('SettingsScreen')
+            // () => this.props.navigation.pop()
+          }}
+          title={'Play This Block Now'}
+        />
+
         <Text>
           {/* {this.props.id} */}
           {this.state.fileMetaData.uri}
